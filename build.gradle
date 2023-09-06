@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'io.github.piotrrzysko'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+    }
+}
+
+application {
+    applicationDefaultJvmArgs = [
+            '--add-modules=jdk.incubator.vector'
+    ]
+    mainClass = 'io.github.piotrrzysko.Main'
+}
+
+dependencies {
+    implementation("org.simdjson:simdjson-java:0.1.0")
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+}
